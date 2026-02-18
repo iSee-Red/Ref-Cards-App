@@ -41,9 +41,12 @@ misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
-# Keystore files
+# Keystore files - IMPORTANT for security
 *.jks
 *.keystore
+*.p12
+*.pfx
+release.keystore
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -74,3 +77,17 @@ lint/outputs/
 lint/tmp/
 lint-results.html
 lint-results.xml
+
+# macOS
+.DS_Store
+
+# Backup files
+*~
+*.swp
+*.bak
+
+# Test results
+*.hprof
+
+# Android Profiler
+*.prof

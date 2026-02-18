@@ -1,5 +1,10 @@
 # Ref-Cards-App
 
+[![CI](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml/badge.svg)](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Open%20Source-blue.svg)](LICENSE)
+[![Android](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com/)
+[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg)](https://android-arsenal.com/api?level=24)
+
 An Android application built with Kotlin that displays yellow and red cards like those used by referees in football/soccer matches.
 
 ## Features
@@ -28,10 +33,43 @@ See [BUILD.md](BUILD.md) for detailed build instructions.
 
 ### Quick Start
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/iSee-Red/Ref-Cards-App.git
+   cd Ref-Cards-App
+   ```
+
 2. Open in Android Studio
+
 3. Sync Gradle files
-4. Run on emulator or device
+
+4. Run on emulator or device:
+   ```bash
+   ./gradlew assembleDebug
+   ```
+
+### Running Tests
+
+```bash
+# Run unit tests
+./gradlew test
+
+# Run lint checks
+./gradlew lint
+
+# Build release APK
+./gradlew assembleRelease
+```
+
+## CI/CD Status
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- **CI Workflow**: Automatically builds, tests, and runs lint checks on every push and pull request
+- **Release Workflow**: Automates the creation of releases with APK artifacts
+- **Dependency Review**: Scans for vulnerable dependencies on pull requests
+
+View the [Actions tab](https://github.com/iSee-Red/Ref-Cards-App/actions) for build status and history.
 
 ## Project Structure
 
@@ -68,6 +106,22 @@ When you tap a button:
 - Its background color is set to yellow or red
 - The text is updated to show the appropriate card type
 - The reset button clears the display
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on:
+- Code style guidelines
+- Development setup
+- Pull request process
+- Testing requirements
+
+## Security
+
+For security concerns, please review our [Security Policy](.github/SECURITY.md).
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes in each version.
 
 ## License
 

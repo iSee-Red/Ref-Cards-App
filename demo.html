@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ref Cards App - UI Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            height: 667px;
+            background: #1a1a1a;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+            border: 12px solid #2a2a2a;
+        }
+        
+        .status-bar {
+            height: 25px;
+            background: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+        }
+        
+        .app-content {
+            height: calc(100% - 25px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 20px 50px;
+        }
+        
+        .card-display-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card {
+            width: 250px;
+            height: 350px;
+            border-radius: 15px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .card.yellow {
+            background: #FFC107;
+            color: #000;
+            display: flex;
+        }
+        
+        .card.red {
+            background: #F44336;
+            color: #fff;
+            display: flex;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        button {
+            width: 100%;
+            height: 60px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        .yellow-btn {
+            background: #FFC107;
+            color: #000;
+            box-shadow: 0 4px 12px rgba(255,193,7,0.4);
+        }
+        
+        .yellow-btn:hover {
+            box-shadow: 0 6px 16px rgba(255,193,7,0.6);
+        }
+        
+        .red-btn {
+            background: #F44336;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(244,67,54,0.4);
+        }
+        
+        .red-btn:hover {
+            box-shadow: 0 6px 16px rgba(244,67,54,0.6);
+        }
+        
+        .reset-btn {
+            background: #9E9E9E;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(158,158,158,0.4);
+        }
+        
+        .reset-btn:hover {
+            box-shadow: 0 6px 16px rgba(158,158,158,0.6);
+        }
+        
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>Ref Cards</span>
+            <span>🔋</span>
+        </div>
+        <div class="app-content">
+            <div class="card-display-area">
+                <div id="card" class="card"></div>
+            </div>
+            <div class="buttons">
+                <button class="yellow-btn" onclick="showYellowCard()">Show Yellow Card</button>
+                <button class="red-btn" onclick="showRedCard()">Show Red Card</button>
+                <button class="reset-btn" onclick="resetCard()">Reset</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info">
+        Interactive Demo - Click the buttons to see the cards!
+    </div>
+    
+    <script>
+        const card = document.getElementById('card');
+        
+        function showYellowCard() {
+            card.className = 'card yellow';
+            card.textContent = 'YELLOW CARD';
+        }
+        
+        function showRedCard() {
+            card.className = 'card red';
+            card.textContent = 'RED CARD';
+        }
+        
+        function resetCard() {
+            card.className = 'card';
+            card.textContent = '';
+        }
+    </script>
+</body>
+</html>

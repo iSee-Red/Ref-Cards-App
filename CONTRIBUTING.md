@@ -44,7 +44,7 @@ See [BUILD.md](BUILD.md) for detailed build instructions.
 
 ## Making Changes
 
-1. Create a new branch from `main`:
+1. Create a new branch from `master`:
    ```bash
    git checkout -b feature/your-feature-name
    ```

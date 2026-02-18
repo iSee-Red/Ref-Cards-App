@@ -1,0 +1,115 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  build-release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      - name: Extract version information
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "version_name=${VERSION#v}" >> $GITHUB_OUTPUT
+      
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --stacktrace
+        env:
+          # For signed builds, set these secrets in GitHub repository settings
+          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        continue-on-error: true
+      
+      - name: Build Debug APK (fallback)
+        if: failure()
+        run: ./gradlew assembleDebug --stacktrace
+      
+      - name: Find APK
+        id: find_apk
+        run: |
+          if [ -f app/build/outputs/apk/release/*.apk ]; then
+            APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -1)
+          else
+            APK_PATH=$(find app/build/outputs/apk/debug -name "*.apk" | head -1)
+          fi
+          echo "apk_path=${APK_PATH}" >> $GITHUB_OUTPUT
+          echo "apk_name=$(basename ${APK_PATH})" >> $GITHUB_OUTPUT
+      
+      - name: Generate changelog
+        id: changelog
+        run: |
+          if [ -f CHANGELOG.md ]; then
+            CHANGELOG=$(cat CHANGELOG.md | head -50)
+          else
+            CHANGELOG="Release ${{ steps.version.outputs.version }}"
+          fi
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "${CHANGELOG}" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release ${{ steps.version.outputs.version }}
+          body: |
+            ## Ref Cards App ${{ steps.version.outputs.version }}
+            
+            ### Changes
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ### Installation
+            Download the APK file below and install on your Android device.
+            
+            **Note:** You may need to enable "Install from unknown sources" in your device settings.
+          files: |
+            ${{ steps.find_apk.outputs.apk_path }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,7 @@
 # Ref-Cards-App
 
+[![CI](https://github.com/iSee-Red/Ref-Cards-App/workflows/CI/badge.svg)](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml)
+
 An Android application built with Kotlin that displays yellow and red cards like those used by referees in football/soccer matches.
 
 ## Features

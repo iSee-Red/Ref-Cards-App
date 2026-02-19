@@ -1,6 +1,7 @@
 # Ref-Cards-App
 
-[![CI](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml/badge.svg)](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml)
+[![CI](https://github.com/iSee-Red/Ref-Cards-App/workflows/CI/badge.svg)](https://github.com/iSee-Red/Ref-Cards-App/actions/workflows/ci.yml)
+
 [![License](https://img.shields.io/badge/license-Open%20Source-blue.svg)](LICENSE)
 [![Android](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com/)
 [![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg)](https://android-arsenal.com/api?level=24)

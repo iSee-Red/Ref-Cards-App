@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showYellowCard() {
         cardDisplay.setBackgroundColor(Color.YELLOW)
-        cardText.text = "YELLOW CARD"
+        cardText.text = getString(R.string.yellow_card)
         cardText.setTextColor(Color.BLACK)
         cardDisplay.visibility = View.VISIBLE
         cardText.visibility = View.VISIBLE
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRedCard() {
         cardDisplay.setBackgroundColor(Color.RED)
-        cardText.text = "RED CARD"
+        cardText.text = getString(R.string.red_card)
         cardText.setTextColor(Color.WHITE)
         cardDisplay.visibility = View.VISIBLE
         cardText.visibility = View.VISIBLE

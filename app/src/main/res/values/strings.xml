@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ref Cards</string>
+    <string name="show_yellow_card">Show Yellow Card</string>
+    <string name="show_red_card">Show Red Card</string>
+    <string name="reset">Reset</string>
+    <string name="yellow_card">YELLOW CARD</string>
+    <string name="red_card">RED CARD</string>
 </resources>
